@@ -2,7 +2,7 @@ import React from 'react';
 import { Map as LeafletMap, TileLayer } from 'react-leaflet';
 import './Map.css';
 import { showCirclesOnMap } from './util.js'
-function Map({ center, zoom,countries,caseType }) {
+function Map({ center, zoom, countries, caseType }) {
     return (
         <div className="map">
             <LeafletMap center={center} zoom={zoom}>
@@ -12,10 +12,10 @@ function Map({ center, zoom,countries,caseType }) {
                 >
 
                 </TileLayer>
-                {countries.length && (showCirclesOnMap(countries,caseType))}
+                {countries.length && (showCirclesOnMap(countries, caseType))}
             </LeafletMap>
         </div>
     )
 }
 
-export default Map
+export default Map;
