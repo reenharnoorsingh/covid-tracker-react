@@ -1,35 +1,30 @@
-import React from 'react'
-import { Card, CardContent, Typography } from '@material-ui/core';
-import './Infobox.css';
-import numeral from 'numeral';
+import React from "react";
+import { Card, CardContent, Typography } from "@material-ui/core";
+import "./InfoBox.css";
 
+function InfoBox({ title, cases, total, active, isRed, ...props }) {
+  console.log(title, active);
+  return (
+    <Card
+      onClick={props.onClick}
+      className={`infoBox ${active && "infoBox--selected"} ${
+        isRed && "infoBox--red"
+      }`}
+    >
+      <CardContent>
+        <Typography color="textSecondary" gutterBottom>
+          {title}
+        </Typography>
+        <h2 className={`infoBox__cases ${!isRed && "infoBox__cases--green"}`}>
+          {cases}
+        </h2>
 
-function Infobox({ title, cases, total, onClick, active, caseType, updated }) {
-    console.log("cases ", cases);
-    return (
-        <div onClick={onClick}
-            className={`infobox ${active && 'infobox__active'} ${caseType}`} >
-            <Card>
-                <CardContent>
-                    <Typography className="infobox__title" color="textSecondary">
-                        {title}
-                    </Typography>
-                    <h2 className="infobox__cases">
-                        {numeral(total).format("0.0a")}
-                    </h2>
-                    <Typography className="infobox__total" color="textSecondary">
-                        {cases ? cases > 0 ?
-                            "+" + numeral(cases).format("0.0a") : numeral(cases).format("0.0a")
-                            : "+0"}
-
-                    </Typography>
-                    <Typography className="infobox__updated" color="textSecondary">
-                        {new Date(updated).toLocaleString()}
-                    </Typography>
-                </CardContent>
-            </Card>
-        </div >
-    )
+        <Typography className="infoBox__total" color="textSecondary">
+          {total} Total
+        </Typography>
+      </CardContent>
+    </Card>
+  );
 }
 
-export default Infobox
+export default InfoBox;

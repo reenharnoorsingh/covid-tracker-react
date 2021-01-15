@@ -1,73 +1,71 @@
-import React from 'react';
-import { Circle, Popup } from 'react-leaflet';
-import numeral from 'numeral'
+import React from "react";
+import numeral from "numeral";
+import { Circle, Popup } from "react-leaflet";
+
+const casesTypeColors = {
+  cases: {
+    hex: "#CC1034",
+    rgb: "rgb(204, 16, 52)",
+    half_op: "rgba(204, 16, 52, 0.5)",
+    multiplier: 800,
+  },
+  recovered: {
+    hex: "#7dd71d",
+    rgb: "rgb(125, 215, 29)",
+    half_op: "rgba(125, 215, 29, 0.5)",
+    multiplier: 1200,
+  },
+  deaths: {
+    hex: "#fb4443",
+    rgb: "rgb(251, 68, 67)",
+    half_op: "rgba(251, 68, 67, 0.5)",
+    multiplier: 2000,
+  },
+};
 
 export const sortData = (data) => {
-    const sortedData = [...data];
-    sortedData.sort((a, b) => {
-        if (a.cases > b.cases) {
-            return -1;
-        } else {
-            return 1;
-        }
-    });
-    return sortedData;
-}
-const caseTypeColors = {
-    cases: {
-        color: "#cc1034",
-        multiplier: 800
-    },
-    recovered: {
-        color: "#7dd71d",
-        multiplier: 800
-    },
-    active: {
-        color: "#1769aa",
-        multiplier: 800
-    },
-    deaths: {
-        color: "#333",
-        multiplier: 1200
+  let sortedData = [...data];
+  sortedData.sort((a, b) => {
+    if (a.cases > b.cases) {
+      return -1;
+    } else {
+      return 1;
     }
-}
-export const showCirclesOnMap = (data, caseType = "cases") => {
-    if (data) {
-        caseType = caseType === "activecase" ? "active" : caseType 
-        let circles = data.map((country) => (
-            <Circle
-                center={[country.countryInfo ? country.countryInfo.lat : 20, 
-                    country.countryInfo ? country.countryInfo.long : 70]}
-                fillOpacity={0.4}
-                fillColor={caseTypeColors[caseType].color}
-                color={caseTypeColors[caseType].color}
-                radius={Math.sqrt(country[caseType]) * caseTypeColors[caseType].multiplier}
-            >
-                <Popup>
-                    <div className="info-container">
-                        <div className="info-flag"
-                        style={{backgroundImage:`url(${country.countryInfo.flag})`}}
-                        >
-                          
-                        </div>
-                        <div className="info-name">{country.country}</div>
-                        <div className="info-cases">
-                            Cases : {numeral(country["cases"]).format("0,0")}
-                        </div>
-                        <div className="info-activecase">
-                            Active : {numeral(country["active"]).format("0,0")}
-                        </div>
-                        <div className="info-recovered">
-                            Recovered : {numeral(country["recovered"]).format("0,0")}
-                        </div>
-                        <div className="info-deaths">
-                            Deaths : {numeral(country["deaths"]).format("0,0")}
-                        </div>
-                    </div>
-                </Popup>
+  });
+  return sortedData;
+};
 
-            </Circle>
-        ))
-        return circles;
-    }
-}
+export const prettyPrintStat = (stat) =>
+  stat ? `+${numeral(stat).format("0.0a")}` : "+0";
+
+export const showDataOnMap = (data, casesType = "cases") =>
+  data.map((country) => (
+    <Circle
+      center={[country.countryInfo.lat, country.countryInfo.long]}
+      color={casesTypeColors[casesType].hex}
+      fillColor={casesTypeColors[casesType].hex}
+      fillOpacity={0.4}
+      radius={
+        Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
+      }
+    >
+      <Popup>
+        <div className="info-container">
+          <div
+            className="info-flag"
+            style={{ backgroundImage: `url(${country.countryInfo.flag})` }}
+          ></div>
+          <div className="info-name">{country.country}</div>
+          <div className="info-confirmed">
+            Cases: {numeral(country.cases).format("0,0")}
+          </div>
+          <div className="info-recovered">
+            Recovered: {numeral(country.recovered).format("0,0")}
+          </div>
+          <div className="info-deaths">
+            Deaths: {numeral(country.deaths).format("0,0")}
+          </div>
+        </div>
+      </Popup>
+    </Circle>
+  ));

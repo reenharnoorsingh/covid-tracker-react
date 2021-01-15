@@ -1,45 +1,33 @@
-.infobox{
-    width: 23%;
-    cursor: pointer;
+.infoBox {
+  flex: 1;
 }
-.infobox{
-    border-top: 3px solid #fff;
-    border-radius: 4px 4px 0 0;
+
+.infoBox:not(:last-child) {
+  margin-right: 10px;
 }
-.infobox.cases.infobox__active{
-    border-top:3px solid #cc1034;
+
+.infoBox--selected {
+  border-top: 10px solid greenyellow;
 }
-.infobox.recovered.infobox__active{
-    border-top:3px solid #7dd71d;
+
+.infoBox--red {
+  border-color: red;
 }
-.infobox.deaths.infobox__active{
-    border-top:3px solid #333;
+
+.infoBox__cases--green {
+  color: lightgreen !important;
 }
-.infobox.activecase.infobox__active{
-    border-top:3px solid #1769aa;
+
+.infoBox__cases {
+  color: #cc1034;
+  font-weight: 600;
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
 }
-.infobox.cases .infobox__cases{
-    color:#cc1034 !important;
-}
-.infobox.recovered .infobox__cases{
-    color:#7dd71d !important;
-}
-.infobox.activecase .infobox__cases{
-    color:#1769aa !important;
-}
-.infobox.deaths .infobox__cases{
-    color:#333 !important;
-}
-.infobox__updated{
-    font-size: 12px !important;
-    opacity: .5;
-}
-.MuiPaper-elevation1{
-    box-shadow: none !important;
-}
-.MuiPaper-rounded{
-    border-radius: 0 0 4px 4px;
-}
-.MuiCardContent-root:last-child{
-    padding-bottom: 16px;
+
+.infoBox__total {
+  color: #6c757d;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  margin-top: 15px !important;
 }
